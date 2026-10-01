@@ -1,0 +1,41 @@
+{
+  "name": "JournalEntry",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "mood": {
+      "type": "string",
+      "enum": [
+        "peaceful",
+        "grateful",
+        "reflective",
+        "hopeful",
+        "neutral",
+        "struggling"
+      ],
+      "default": "neutral"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "user_id",
+    "content"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "name": "Reminder",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "prayer",
+        "fasting",
+        "reading",
+        "event",
+        "custom"
+      ],
+      "default": "custom"
+    },
+    "time": {
+      "type": "string",
+      "description": "HH:mm 24h format"
+    },
+    "days": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Weekdays: mon,tue,..."
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "religion_key": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "title"
+  ]
+}

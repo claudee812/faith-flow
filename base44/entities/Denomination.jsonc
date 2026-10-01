@@ -1,0 +1,46 @@
+{
+  "name": "Denomination",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Unique slug identifier"
+    },
+    "religion_key": {
+      "type": "string",
+      "description": "Parent religion key"
+    },
+    "name": {
+      "type": "string"
+    },
+    "name_translations": {
+      "type": "object",
+      "properties": {
+        "de": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        },
+        "ar": {
+          "type": "string"
+        },
+        "he": {
+          "type": "string"
+        }
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "order": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "key",
+    "religion_key",
+    "name"
+  ]
+}

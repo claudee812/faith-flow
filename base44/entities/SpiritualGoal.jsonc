@@ -1,0 +1,55 @@
+{
+  "name": "SpiritualGoal",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "prayer",
+        "reading",
+        "fasting",
+        "habit",
+        "custom"
+      ],
+      "default": "custom"
+    },
+    "target": {
+      "type": "number",
+      "default": 1
+    },
+    "unit": {
+      "type": "string"
+    },
+    "progress": {
+      "type": "number",
+      "default": 0
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "completed",
+        "paused"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "user_id",
+    "title"
+  ]
+}

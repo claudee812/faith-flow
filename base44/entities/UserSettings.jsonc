@@ -1,0 +1,67 @@
+{
+  "name": "UserSettings",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Owner user id"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "religion": {
+      "type": "string",
+      "description": "Selected religion key"
+    },
+    "denomination": {
+      "type": "string",
+      "description": "Selected denomination key"
+    },
+    "location_mode": {
+      "type": "string",
+      "enum": [
+        "auto",
+        "manual",
+        "later"
+      ],
+      "default": "later"
+    },
+    "manual_location": {
+      "type": "string"
+    },
+    "latitude": {
+      "type": "number"
+    },
+    "longitude": {
+      "type": "number"
+    },
+    "timezone": {
+      "type": "string"
+    },
+    "notifications_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "dark_mode": {
+      "type": "boolean",
+      "default": false
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "de",
+        "en",
+        "ar",
+        "he"
+      ],
+      "default": "de"
+    },
+    "onboarding_complete": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "user_id"
+  ]
+}

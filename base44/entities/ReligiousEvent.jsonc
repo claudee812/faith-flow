@@ -1,0 +1,60 @@
+{
+  "name": "ReligiousEvent",
+  "type": "object",
+  "properties": {
+    "religion_key": {
+      "type": "string"
+    },
+    "denomination_key": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "name_translations": {
+      "type": "object",
+      "properties": {
+        "de": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        },
+        "ar": {
+          "type": "string"
+        },
+        "he": {
+          "type": "string"
+        }
+      }
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "holiday",
+        "fast",
+        "feast",
+        "memorial",
+        "weekly",
+        "season"
+      ],
+      "default": "holiday"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "religion_key",
+    "name",
+    "date"
+  ]
+}

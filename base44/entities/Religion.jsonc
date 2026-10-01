@@ -1,0 +1,60 @@
+{
+  "name": "Religion",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Unique slug identifier, e.g. islam, christianity, judaism"
+    },
+    "name": {
+      "type": "string",
+      "description": "Default display name"
+    },
+    "name_translations": {
+      "type": "object",
+      "properties": {
+        "de": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        },
+        "ar": {
+          "type": "string"
+        },
+        "he": {
+          "type": "string"
+        }
+      },
+      "description": "Localized religion names"
+    },
+    "description": {
+      "type": "string"
+    },
+    "theme_key": {
+      "type": "string",
+      "description": "Key into the theme system"
+    },
+    "icon": {
+      "type": "string",
+      "description": "lucide-react icon name"
+    },
+    "accent_symbol": {
+      "type": "string",
+      "description": "Symbol identifier for motifs"
+    },
+    "order": {
+      "type": "number",
+      "default": 0
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "key",
+    "name",
+    "theme_key"
+  ]
+}
