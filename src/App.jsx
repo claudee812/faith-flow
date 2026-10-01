@@ -21,6 +21,8 @@ import Calendar from '@/pages/Calendar';
 import Tracker from '@/pages/Tracker';
 import Content from '@/pages/Content';
 import Profile from '@/pages/Profile';
+import PrayerJournalPage from '@/pages/PrayerJournalPage';
+import ChurchServicePage from '@/pages/ChurchServicePage';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -65,6 +67,8 @@ const AuthenticatedApp = () => {
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/tracker" element={<Tracker />} />
             <Route path="/content" element={<Content />} />
+            <Route path="/journal" element={<PrayerJournalPage />} />
+            <Route path="/service" element={<ChurchServicePage />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
         </Route>

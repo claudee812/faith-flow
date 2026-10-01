@@ -1,0 +1,27 @@
+{
+  "name": "DenominationFeature",
+  "type": "object",
+  "properties": {
+    "denomination_key": {
+      "type": "string"
+    },
+    "feature_key": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "order": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "denomination_key",
+    "feature_key"
+  ]
+}

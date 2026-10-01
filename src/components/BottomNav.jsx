@@ -16,6 +16,7 @@ const BASE_ITEMS = [
 
 function fourthItem(religion) {
   if (religion === "islam") return { to: "/content", icon: BookOpen, labelKey: "nav.quran" };
+  if (religion === "christianity") return { to: "/content", icon: BookOpen, labelKey: "nav.bible" };
   return { to: "/content", icon: BookOpen, labelKey: "nav.content" };
 }
 

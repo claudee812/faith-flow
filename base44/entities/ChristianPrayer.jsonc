@@ -1,0 +1,42 @@
+{
+  "name": "ChristianPrayer",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Owner user id"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Day the prayer belongs to"
+    },
+    "slot_key": {
+      "type": "string",
+      "description": "Prayer routine slot key"
+    },
+    "label": {
+      "type": "string"
+    },
+    "time": {
+      "type": "string",
+      "description": "HH:mm"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "note": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "date",
+    "slot_key"
+  ]
+}

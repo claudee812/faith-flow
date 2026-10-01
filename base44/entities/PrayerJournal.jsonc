@@ -1,0 +1,52 @@
+{
+  "name": "PrayerJournal",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Owner user id"
+    },
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "gratitude",
+        "intercession",
+        "petition",
+        "confession",
+        "praise",
+        "other"
+      ],
+      "default": "other"
+    },
+    "content": {
+      "type": "string",
+      "description": "Private prayer text"
+    },
+    "reminder_time": {
+      "type": "string",
+      "description": "HH:mm"
+    },
+    "reminder_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "answered": {
+      "type": "boolean",
+      "default": false
+    },
+    "answered_note": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "user_id",
+    "content"
+  ]
+}

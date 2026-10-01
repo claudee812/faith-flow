@@ -1,0 +1,41 @@
+{
+  "name": "Devotion",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Owner user id"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "rosary",
+        "confession",
+        "office",
+        "other"
+      ],
+      "default": "other"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "count": {
+      "type": "number",
+      "default": 0,
+      "description": "e.g. rosary decades, or 1 for a confession completed"
+    },
+    "detail": {
+      "type": "string",
+      "description": "e.g. rosary mystery of the day"
+    },
+    "note": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "type",
+    "date"
+  ]
+}

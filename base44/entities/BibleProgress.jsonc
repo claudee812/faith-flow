@@ -1,0 +1,63 @@
+{
+  "name": "BibleProgress",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Owner user id"
+    },
+    "book": {
+      "type": "string",
+      "description": "Current book name"
+    },
+    "book_index": {
+      "type": "number",
+      "description": "1-66 position in the canon"
+    },
+    "chapter": {
+      "type": "number",
+      "description": "Current chapter within the book"
+    },
+    "chapters_in_book": {
+      "type": "number"
+    },
+    "chapters_read": {
+      "type": "number",
+      "default": 0,
+      "description": "Total chapters read overall"
+    },
+    "last_read_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "progress_percent": {
+      "type": "number",
+      "default": 0,
+      "description": "Overall progress through the Bible"
+    },
+    "daily_goal_chapters": {
+      "type": "number",
+      "default": 1
+    },
+    "reading_plan": {
+      "type": "string",
+      "enum": [
+        "free",
+        "through_bible_year",
+        "nt_30",
+        "ot_9"
+      ],
+      "default": "free"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "bookmarked": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "user_id"
+  ]
+}
