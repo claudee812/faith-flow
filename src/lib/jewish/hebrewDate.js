@@ -1,37 +1,35 @@
-// Hebrew calendar engine (Reingold–Dershowitz arithmetic) plus helpers for
-// FaithFlow. Public-domain factual astronomy/math only — no copyrighted text.
+// Hebrew calendar engine for FaithFlow.
+//
+// Backed by @hebcal/hdate — a validated, GPL-2.0 implementation of the
+// Reingold–Dershowitz Rata Die algorithm (the same authoritative source
+// used by hebcal.com). We expose a small, stable wrapper API so the rest
+// of the app never depends on the library's internals directly.
+//
 // Months are numbered Nisan=1, Iyyar=2, Sivan=3, Tammuz=4, Av=5, Elul=6,
 // Tishrei=7, Cheshvan=8, Kislev=9, Tevet=10, Shevat=11, Adar=12, Adar II=13.
 // The civil year starts at Tishrei (month 7).
 
-function mod(a, b) {
-  return ((a % b) + b) % b;
-}
-
-// Rata Die epoch: RD 1 = 1 Jan 1 CE (Gregorian) = JDN 1721426.
-const RD_TO_JDN = 1721425; // JDN = RD + 1721425
-const HEBREW_EPOCH = -1373428; // RD of 1 Tishrei year 1 (hebcal/hdate reference epoch)
+import {
+  hebrew2abs,
+  abs2hebrew,
+  greg2abs,
+  abs2greg,
+  isLeapYear,
+  daysInMonth,
+  getMonthName,
+} from "@hebcal/hdate";
 
 export function hebrew_leap_year(y) {
-  return mod(y * 7 + 1, 19) < 7;
+  return isLeapYear(y);
 }
 
 export function last_month_of_hebrew_year(y) {
-  return hebrew_leap_year(y) ? 13 : 12;
+  return isLeapYear(y) ? 13 : 12;
 }
 
-// Days from the epoch to the molad of Tishrei for year y, after applying the
-// Lo ADU Rosh postponement (new year not on Sun/Wed/Fri). Follows the
-// hebcal/hdate Rata Die algorithm.
-function hebrew_calendar_elapsed_days(y) {
-  const monthsElapsed = Math.floor((235 * y - 234) / 19);
-  const partsElapsed = 12084 + 13753 * monthsElapsed;
-  const day = 29 * monthsElapsed + Math.floor(partsElapsed / 25920);
-  return mod(3 * (day + 1), 7) < 3 ? day + 1 : day;
-}
-
+// Rata Die of 1 Tishrei for the given Hebrew year.
 export function hebrew_new_year(y) {
-  return HEBREW_EPOCH + hebrew_calendar_elapsed_days(y);
+  return hebrew2abs(y, 7, 1);
 }
 
 export function hebrew_year_length(y) {
@@ -39,122 +37,56 @@ export function hebrew_year_length(y) {
 }
 
 export function hebrew_month_length(y, m) {
-  // Fixed-length months.
-  if (m === 2 || m === 4 || m === 6 || m === 10 || m === 13) return 29;
-  if (m === 12 && !hebrew_leap_year(y)) return 29;
-  const len = hebrew_year_length(y);
-  if (m === 8) return len % 10 === 5 ? 30 : 29; // Cheshvan: 30 in complete years
-  if (m === 9) return len % 10 === 3 ? 29 : 30; // Kislev: 29 in deficient years
-  return 30;
+  return daysInMonth(m, y);
 }
 
-// Month order from Tishrei (start of civil year) through Elul.
-function month_order(y) {
-  return hebrew_leap_year(y)
-    ? [7, 8, 9, 10, 11, 12, 13, 1, 2, 3, 4, 5, 6]
-    : [7, 8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6];
-}
-
-// Convert (hebrew year, month, day) -> Rata Die fixed date.
+// (hebrew year, month, day) -> Rata Die fixed date.
 export function hebrew_to_fixed(y, m, day) {
-  let rd = hebrew_new_year(y) + day - 1;
-  for (const mm of month_order(y)) {
-    if (mm === m) break;
-    rd += hebrew_month_length(y, mm);
-  }
-  return rd;
+  return hebrew2abs(y, m, day);
 }
 
-// Convert Rata Die fixed date -> { year, month, day }.
+// Rata Die fixed date -> { year, month, day }.
 export function fixed_to_hebrew(rd) {
-  let y = Math.floor((rd - HEBREW_EPOCH) / 365.2468) + 1;
-  while (hebrew_new_year(y) > rd) y -= 1;
-  while (hebrew_new_year(y + 1) <= rd) y += 1;
-  let dayOfYear = rd - hebrew_new_year(y);
-  let month = 7;
-  let d = dayOfYear;
-  for (const mm of month_order(y)) {
-    const len = hebrew_month_length(y, mm);
-    if (d < len) {
-      month = mm;
-      break;
-    }
-    d -= len;
-  }
-  return { year: y, month, day: d + 1 };
+  const { yy, mm, dd } = abs2hebrew(rd);
+  return { year: yy, month: mm, day: dd };
 }
 
-// ---- Gregorian <-> JDN/RD helpers ----
-function greg_to_jdn(year, month, day) {
-  const a = Math.floor((14 - month) / 12);
-  const yy = year + 4800 - a;
-  const mm = month + 12 * a - 3;
-  return (
-    day +
-    Math.floor((153 * mm + 2) / 5) +
-    365 * yy +
-    Math.floor(yy / 4) -
-    Math.floor(yy / 100) +
-    Math.floor(yy / 400) -
-    32045
-  );
-}
-
-function jdn_to_greg(jdn) {
-  const a = jdn + 32044;
-  const b = Math.floor((4 * a + 3) / 146097);
-  const c = a - Math.floor((146097 * b) / 4);
-  const d = Math.floor((4 * c + 3) / 1461);
-  const e = c - Math.floor((1461 * d) / 4);
-  const m = Math.floor((5 * e + 2) / 153);
-  const day = e - Math.floor((153 * m + 2) / 5) + 1;
-  const month = m + 3 - 12 * Math.floor(m / 10);
-  const year = 100 * b + d - 4800 + Math.floor(m / 10);
-  return { year, month, day };
-}
-
-function dateToJDN(date) {
-  return greg_to_jdn(date.getFullYear(), date.getMonth() + 1, date.getDate());
-}
-
-function jdnToDate(jdn) {
-  const { year, month, day } = jdn_to_greg(jdn);
-  return new Date(year, month - 1, day);
-}
-
+// JS Date -> { year, month, day } (Hebrew).
 export function gregorianToHebrew(date) {
-  const rd = dateToJDN(date) - RD_TO_JDN;
-  return fixed_to_hebrew(rd);
+  const abs = greg2abs(date);
+  const { yy, mm, dd } = abs2hebrew(abs);
+  return { year: yy, month: mm, day: dd };
 }
 
+// (hebrew year, month, day) -> JS Date (midnight local).
 export function hebrewToGregorian(year, month, day) {
-  const rd = hebrew_to_fixed(year, month, day);
-  return jdnToDate(rd + RD_TO_JDN);
+  const abs = hebrew2abs(year, month, day);
+  return abs2greg(abs);
 }
 
 export const HEBREW_MONTH_NAMES = {
-  1: "Nisan",
-  2: "Iyyar",
-  3: "Sivan",
-  4: "Tammuz",
-  5: "Av",
+  1: "Nissan",
+  2: "Ijjar",
+  3: "Siwan",
+  4: "Tammus",
+  5: "Aw",
   6: "Elul",
-  7: "Tishrei",
-  8: "Cheshvan",
-  9: "Kislev",
-  10: "Tevet",
-  11: "Shevat",
+  7: "Tischrei",
+  8: "Cheschwan",
+  9: "Kislew",
+  10: "Tewet",
+  11: "Schwat",
   12: "Adar",
   13: "Adar II",
 };
 
-// For leap years, Adar I is 12 and Adar II is 13. Display "Adar I/II".
+// German-friendly display name. In a leap year month 12 is "Adar I".
 export function hebrewMonthName(year, month) {
-  if (hebrew_leap_year(year)) {
+  if (isLeapYear(year)) {
     if (month === 12) return "Adar I";
     if (month === 13) return "Adar II";
   }
-  return HEBREW_MONTH_NAMES[month] || "";
+  return HEBREW_MONTH_NAMES[month] || getMonthName(month, year);
 }
 
 export function formatHebrewDate(date) {
@@ -169,15 +101,15 @@ export function formatHebrewDate(date) {
   };
 }
 
-// Hebrew day of week name (Hebrew), keyed by JS getDay().
+// Hebrew day-of-week names (transliterated), keyed by JS getDay().
 export const HEBREW_DAY_NAMES = [
-  "Rishon",
-  "Sheni",
-  "Shlishi",
-  "Revi'i",
-  "Chamishi",
-  "Shishi",
-  "Shabbat",
+  "Jom Rischon",
+  "Jom Scheni",
+  "Jom Schlischi",
+  "Jom Revi'i",
+  "Jom Chamischi",
+  "Jom Schischi",
+  "Schabbat",
 ];
 
 // Is the given date Shabbat (Saturday)?

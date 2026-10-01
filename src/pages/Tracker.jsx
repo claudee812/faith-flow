@@ -4,11 +4,13 @@ import ComingSoon from "@/components/ComingSoon";
 import { useSettings } from "@/context/SettingsContext";
 import IslamicTracker from "@/pages/IslamicTracker";
 import ChristianTracker from "@/pages/ChristianTracker";
+import JewishTracker from "@/pages/JewishTracker";
 
 export default function Tracker() {
   const { t, themeReligion } = useSettings();
   if (themeReligion === "islam") return <IslamicTracker />;
   if (themeReligion === "christianity") return <ChristianTracker />;
+  if (themeReligion === "judaism") return <JewishTracker />;
   return (
     <ComingSoon
       icon={Target}

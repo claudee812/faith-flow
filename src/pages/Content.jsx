@@ -4,11 +4,13 @@ import ComingSoon from "@/components/ComingSoon";
 import { useSettings } from "@/context/SettingsContext";
 import Quran from "@/pages/Quran";
 import Bible from "@/pages/Bible";
+import Torah from "@/pages/Torah";
 
 export default function Content() {
   const { t, themeReligion } = useSettings();
   if (themeReligion === "islam") return <Quran />;
   if (themeReligion === "christianity") return <Bible />;
+  if (themeReligion === "judaism") return <Torah />;
   return (
     <ComingSoon
       icon={BookOpen}

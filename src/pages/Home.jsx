@@ -6,6 +6,7 @@ import HomeCard from "@/components/HomeCard";
 import ReligionMotif from "@/components/ReligionMotif";
 import IslamicDashboard from "@/components/islam/IslamicDashboard";
 import ChristianDashboard from "@/components/christian/ChristianDashboard";
+import JewishDashboard from "@/components/jewish/JewishDashboard";
 import {
   mockNextEvent,
   mockDailyProgress,
@@ -26,6 +27,7 @@ export default function Home() {
   const { user } = useAuth();
   if (themeReligion === "islam") return <IslamicDashboard />;
   if (themeReligion === "christianity") return <ChristianDashboard />;
+  if (themeReligion === "judaism") return <JewishDashboard />;
   const name = settings?.display_name || user?.full_name || user?.email?.split("@")[0] || "";
   const today = new Date().toLocaleDateString("de-DE", {
     weekday: "long",
