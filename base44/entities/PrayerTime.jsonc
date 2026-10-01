@@ -1,0 +1,70 @@
+{
+  "name": "PrayerTime",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Owner user id"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "fajr": {
+      "type": "string",
+      "description": "HH:mm"
+    },
+    "sunrise": {
+      "type": "string"
+    },
+    "dhuhr": {
+      "type": "string"
+    },
+    "asr": {
+      "type": "string"
+    },
+    "maghrib": {
+      "type": "string"
+    },
+    "isha": {
+      "type": "string"
+    },
+    "midnight": {
+      "type": "string",
+      "description": "Islamic midnight (HH:mm)"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "mock",
+        "calc",
+        "api"
+      ],
+      "default": "mock"
+    },
+    "calc_method": {
+      "type": "string",
+      "description": "Calculation method key used"
+    },
+    "asr_madhhab": {
+      "type": "string",
+      "enum": [
+        "shafi",
+        "hanafi"
+      ]
+    },
+    "latitude": {
+      "type": "number"
+    },
+    "longitude": {
+      "type": "number"
+    },
+    "timezone": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "date"
+  ]
+}

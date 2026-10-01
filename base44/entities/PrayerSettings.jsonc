@@ -1,0 +1,43 @@
+{
+  "name": "PrayerSettings",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Owner user id"
+    },
+    "calc_method": {
+      "type": "string",
+      "default": "MWL",
+      "description": "Calculation method key (see calcMethods)"
+    },
+    "asr_madhhab": {
+      "type": "string",
+      "enum": [
+        "shafi",
+        "hanafi"
+      ],
+      "default": "shafi"
+    },
+    "latitude": {
+      "type": "number"
+    },
+    "longitude": {
+      "type": "number"
+    },
+    "timezone": {
+      "type": "string",
+      "description": "IANA timezone, e.g. Europe/Berlin"
+    },
+    "location_name": {
+      "type": "string"
+    },
+    "reminder_offset_min": {
+      "type": "number",
+      "default": 10
+    }
+  },
+  "required": [
+    "user_id"
+  ]
+}

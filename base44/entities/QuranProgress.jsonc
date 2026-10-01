@@ -1,0 +1,40 @@
+{
+  "name": "QuranProgress",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "surah_number": {
+      "type": "number"
+    },
+    "surah_name": {
+      "type": "string"
+    },
+    "ayah_number": {
+      "type": "number"
+    },
+    "last_read_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "progress_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "daily_goal_pages": {
+      "type": "number",
+      "default": 1
+    },
+    "notes": {
+      "type": "string"
+    },
+    "bookmarked": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "user_id"
+  ]
+}

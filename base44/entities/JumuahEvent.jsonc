@@ -1,0 +1,41 @@
+{
+  "name": "JumuahEvent",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "The Friday this record belongs to"
+    },
+    "checklist_preparation": {
+      "type": "boolean",
+      "default": false
+    },
+    "checklist_clothing": {
+      "type": "boolean",
+      "default": false
+    },
+    "checklist_leave": {
+      "type": "boolean",
+      "default": false
+    },
+    "checklist_attended": {
+      "type": "boolean",
+      "default": false
+    },
+    "mosque_name": {
+      "type": "string"
+    },
+    "reminder_enabled": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "user_id",
+    "date"
+  ]
+}

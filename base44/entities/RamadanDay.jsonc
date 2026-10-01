@@ -1,0 +1,50 @@
+{
+  "name": "RamadanDay",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "ramadan_day_number": {
+      "type": "number",
+      "description": "1-30 day within the month of Ramadan"
+    },
+    "fast_status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "fasting",
+        "completed"
+      ],
+      "default": "not_started"
+    },
+    "prayers_completed": {
+      "type": "number",
+      "default": 0
+    },
+    "tarawih": {
+      "type": "boolean",
+      "default": false
+    },
+    "quran_pages": {
+      "type": "number",
+      "default": 0
+    },
+    "dhikr_count": {
+      "type": "number",
+      "default": 0
+    },
+    "sadaqah": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "user_id",
+    "date"
+  ]
+}

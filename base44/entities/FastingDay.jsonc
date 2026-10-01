@@ -1,0 +1,44 @@
+{
+  "name": "FastingDay",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "ramadan",
+        "monday_thursday",
+        "ashura",
+        "arafah",
+        "other"
+      ],
+      "default": "other"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "fasting",
+        "completed"
+      ],
+      "default": "not_started"
+    },
+    "suhur_time": {
+      "type": "string",
+      "description": "HH:mm"
+    },
+    "iftar_time": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "date"
+  ]
+}

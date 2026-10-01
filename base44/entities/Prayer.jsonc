@@ -1,0 +1,42 @@
+{
+  "name": "Prayer",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Owner user id"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Day the prayer belongs to (YYYY-MM-DD)"
+    },
+    "prayer_key": {
+      "type": "string",
+      "enum": [
+        "fajr",
+        "dhuhr",
+        "asr",
+        "maghrib",
+        "isha"
+      ],
+      "description": "Which of the five daily prayers"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "note": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "date",
+    "prayer_key"
+  ]
+}
