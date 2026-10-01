@@ -1,0 +1,53 @@
+{
+  "name": "ShabbatEvent",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "The Friday this Shabbat begins"
+    },
+    "candles_time": {
+      "type": "string",
+      "description": "Candle lighting HH:mm"
+    },
+    "havdalah_time": {
+      "type": "string",
+      "description": "Havdalah HH:mm"
+    },
+    "checklist_preparation": {
+      "type": "boolean",
+      "default": false
+    },
+    "checklist_candles": {
+      "type": "boolean",
+      "default": false
+    },
+    "checklist_meal": {
+      "type": "boolean",
+      "default": false
+    },
+    "checklist_service": {
+      "type": "boolean",
+      "default": false
+    },
+    "checklist_rest": {
+      "type": "boolean",
+      "default": false
+    },
+    "reminder_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "note": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "date"
+  ]
+}

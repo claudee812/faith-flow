@@ -1,0 +1,64 @@
+{
+  "name": "TorahProgress",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Owner user id"
+    },
+    "parasha": {
+      "type": "string",
+      "description": "Current weekly portion name"
+    },
+    "parasha_index": {
+      "type": "number",
+      "description": "1-54 position in the annual cycle"
+    },
+    "book": {
+      "type": "string",
+      "description": "Current book of the Tanakh"
+    },
+    "chapter": {
+      "type": "number"
+    },
+    "verse": {
+      "type": "number"
+    },
+    "aliya": {
+      "type": "number",
+      "description": "1-7 daily reading portion"
+    },
+    "last_read_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "progress_percent": {
+      "type": "number",
+      "default": 0
+    },
+    "daily_goal_verses": {
+      "type": "number",
+      "default": 10
+    },
+    "reading_plan": {
+      "type": "string",
+      "enum": [
+        "free",
+        "parasha_yearly",
+        "tanakh_year",
+        "daf_yomi"
+      ],
+      "default": "parasha_yearly"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "bookmarked": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "user_id"
+  ]
+}

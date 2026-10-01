@@ -1,0 +1,58 @@
+{
+  "name": "FastingEvent",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Owner user id"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Gregorian date of the fast"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the fast"
+    },
+    "start_time": {
+      "type": "string",
+      "description": "Fast begins HH:mm (dawn)"
+    },
+    "end_time": {
+      "type": "string",
+      "description": "Fast ends HH:mm (nightfall)"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "major",
+        "minor",
+        "custom"
+      ],
+      "default": "minor"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "not_started",
+        "fasting",
+        "completed",
+        "broken"
+      ],
+      "default": "not_started"
+    },
+    "tradition": {
+      "type": "string",
+      "description": "Religion/tradition context (e.g. judaism)"
+    },
+    "note": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "date",
+    "name"
+  ]
+}

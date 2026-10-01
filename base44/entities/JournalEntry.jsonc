@@ -11,6 +11,18 @@
     "content": {
       "type": "string"
     },
+    "category": {
+      "type": "string",
+      "enum": [
+        "prayer",
+        "gratitude",
+        "reflection",
+        "goal",
+        "thought",
+        "other"
+      ],
+      "default": "other"
+    },
     "mood": {
       "type": "string",
       "enum": [

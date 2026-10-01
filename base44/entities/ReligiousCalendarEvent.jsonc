@@ -1,0 +1,75 @@
+{
+  "name": "ReligiousCalendarEvent",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Owner user id for personal events; null for global/shared"
+    },
+    "religion_key": {
+      "type": "string",
+      "description": "Religion context (null = personal)"
+    },
+    "denomination_key": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "name_translations": {
+      "type": "object",
+      "properties": {
+        "de": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        },
+        "ar": {
+          "type": "string"
+        },
+        "he": {
+          "type": "string"
+        }
+      }
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "holiday",
+        "fast",
+        "feast",
+        "memorial",
+        "weekly",
+        "season",
+        "personal",
+        "reminder",
+        "shabbat"
+      ],
+      "default": "personal"
+    },
+    "description": {
+      "type": "string"
+    },
+    "reminder_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_personal": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "title",
+    "date"
+  ]
+}

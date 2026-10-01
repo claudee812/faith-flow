@@ -30,6 +30,31 @@
       "type": "number",
       "default": 0
     },
+    "frequency": {
+      "type": "string",
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly",
+        "custom"
+      ],
+      "default": "daily"
+    },
+    "reminder_time": {
+      "type": "string",
+      "description": "HH:mm"
+    },
+    "reminder_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "completed_dates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Dates (YYYY-MM-DD) the goal was checked in"
+    },
     "start_date": {
       "type": "string",
       "format": "date"

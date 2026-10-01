@@ -1,0 +1,68 @@
+{
+  "name": "JewishHoliday",
+  "type": "object",
+  "properties": {
+    "hebrew_year": {
+      "type": "number",
+      "description": "Hebrew year this occurrence belongs to (optional; null = recurring definition)"
+    },
+    "hebrew_month": {
+      "type": "number",
+      "description": "Hebrew month number (Nisan=1 ... Adar II=13; Tishrei=7)"
+    },
+    "hebrew_day": {
+      "type": "number",
+      "description": "Day within the hebrew month"
+    },
+    "duration_days": {
+      "type": "number",
+      "default": 1
+    },
+    "name": {
+      "type": "string"
+    },
+    "name_translations": {
+      "type": "object",
+      "properties": {
+        "de": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        },
+        "ar": {
+          "type": "string"
+        },
+        "he": {
+          "type": "string"
+        }
+      }
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "holiday",
+        "fast",
+        "rosh_chodesh",
+        "shabbat",
+        "weekly"
+      ],
+      "default": "holiday"
+    },
+    "traditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Denomination keys this is especially relevant for; empty = all"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "hebrew_month",
+    "hebrew_day",
+    "name"
+  ]
+}

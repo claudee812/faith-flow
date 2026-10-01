@@ -1,0 +1,40 @@
+{
+  "name": "JewishPrayerSettings",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Owner user id"
+    },
+    "slots": {
+      "type": "array",
+      "description": "Editable prayer routine slots (default + user-added)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string",
+            "description": "HH:mm"
+          },
+          "reminder_enabled": {
+            "type": "boolean",
+            "default": true
+          },
+          "custom": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "user_id"
+  ]
+}
