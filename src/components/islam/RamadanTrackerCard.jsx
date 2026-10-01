@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BookHeart, Sparkles, HeartHandshake, Moon } from "lucide-react";
 import { useSettings } from "@/context/SettingsContext";
 import HomeCard from "@/components/HomeCard";

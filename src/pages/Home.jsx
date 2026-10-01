@@ -4,6 +4,7 @@ import { useSettings } from "@/context/SettingsContext";
 import { useAuth } from "@/lib/AuthContext";
 import HomeCard from "@/components/HomeCard";
 import ReligionMotif from "@/components/ReligionMotif";
+import IslamicDashboard from "@/components/islam/IslamicDashboard";
 import {
   mockNextEvent,
   mockDailyProgress,
@@ -22,6 +23,7 @@ function greetingKey() {
 export default function Home() {
   const { t, settings, themeReligion } = useSettings();
   const { user } = useAuth();
+  if (themeReligion === "islam") return <IslamicDashboard />;
   const name = settings?.display_name || user?.full_name || user?.email?.split("@")[0] || "";
   const today = new Date().toLocaleDateString("de-DE", {
     weekday: "long",

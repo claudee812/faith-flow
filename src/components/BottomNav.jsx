@@ -6,16 +6,22 @@ import { cn } from "@/lib/utils";
 
 // Bottom navigation. Items are data-driven so later steps can add entries
 // (e.g. "Gebet", "Fasten") without rewriting the component.
-const NAV_ITEMS = [
+const BASE_ITEMS = [
   { to: "/", icon: Home, labelKey: "nav.home", end: true },
   { to: "/calendar", icon: CalendarDays, labelKey: "nav.calendar" },
   { to: "/tracker", icon: Target, labelKey: "nav.tracker" },
-  { to: "/content", icon: BookOpen, labelKey: "nav.content" },
+  null, // 4th slot is religion-aware (Qur'an for Islam)
   { to: "/profile", icon: User, labelKey: "nav.profile" },
 ];
 
+function fourthItem(religion) {
+  if (religion === "islam") return { to: "/content", icon: BookOpen, labelKey: "nav.quran" };
+  return { to: "/content", icon: BookOpen, labelKey: "nav.content" };
+}
+
 export default function BottomNav() {
-  const { t } = useSettings();
+  const { t, themeReligion } = useSettings();
+  const NAV_ITEMS = BASE_ITEMS.map((it, i) => (i === 3 ? fourthItem(themeReligion) : it));
   return (
     <nav className="absolute bottom-0 inset-x-0 z-30">
       <div className="mx-3 mb-3 rounded-[1.75rem] border border-border/60 bg-card/90 backdrop-blur-xl shadow-lg shadow-black/5">

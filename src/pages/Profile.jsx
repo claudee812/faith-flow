@@ -11,6 +11,7 @@ import {
   Shield,
   ChevronRight,
   LogOut,
+  SlidersHorizontal,
 } from "lucide-react";
 import { useSettings } from "@/context/SettingsContext";
 import { useAuth } from "@/lib/AuthContext";
@@ -24,6 +25,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ReligionChangeDialog from "@/components/ReligionChangeDialog";
+import { usePrayerSettings } from "@/hooks/usePrayerSettings";
+import { CALC_METHODS, ASR_MADHHABS } from "@/lib/prayer/calcMethods";
 
 const REL_ICONS = { MoonStar, Church, Star, Sparkles };
 const LANGS = [
@@ -64,6 +67,7 @@ export default function Profile() {
   const { t, settings, themeReligion, darkMode, toggleDarkMode, language, setLanguage, updateSettings } = useSettings();
   const { user, logout } = useAuth();
   const [religionOpen, setReligionOpen] = useState(false);
+  const { prayerSettings, update: updatePrayerSettings } = usePrayerSettings();
 
   const rel = getReligion(settings?.religion);
   const denom = settings?.denomination ? getDenomination(settings.denomination) : null;
@@ -130,6 +134,50 @@ export default function Profile() {
           <Switch checked={darkMode} onCheckedChange={toggleDarkMode} />
         </Row>
       </Group>
+
+      {settings?.religion === "islam" && (
+        <Group title={t("islam.settings.title")}>
+          <Row icon={SlidersHorizontal} label={t("islam.settings.calcMethod")}>
+            <Select
+              value={prayerSettings?.calc_method || "MWL"}
+              onValueChange={(v) => updatePrayerSettings({ calc_method: v })}
+            >
+              <SelectTrigger className="w-[150px] h-9 border-0 bg-transparent shadow-none focus:ring-0">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {CALC_METHODS.map((m) => (
+                  <SelectItem key={m.key} value={m.key}>
+                    {m.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </Row>
+          <Row icon={SlidersHorizontal} label={t("islam.settings.asrMadhhab")}>
+            <Select
+              value={prayerSettings?.asr_madhhab || "shafi"}
+              onValueChange={(v) => updatePrayerSettings({ asr_madhhab: v })}
+            >
+              <SelectTrigger className="w-[150px] h-9 border-0 bg-transparent shadow-none focus:ring-0">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {ASR_MADHHABS.map((m) => (
+                  <SelectItem key={m.key} value={m.key}>
+                    {m.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </Row>
+          <Row icon={MapPin} label={t("islam.settings.location")}>
+            <span className="text-sm text-muted-foreground">
+              {prayerSettings?.location_name || t("islam.settings.locationHint")}
+            </span>
+          </Row>
+        </Group>
+      )}
 
       {/* Privacy */}
       <Group title={t("profile.section.privacy")}>

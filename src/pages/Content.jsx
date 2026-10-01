@@ -2,9 +2,11 @@ import React from "react";
 import { BookOpen } from "lucide-react";
 import ComingSoon from "@/components/ComingSoon";
 import { useSettings } from "@/context/SettingsContext";
+import Quran from "@/pages/Quran";
 
 export default function Content() {
-  const { t } = useSettings();
+  const { t, themeReligion } = useSettings();
+  if (themeReligion === "islam") return <Quran />;
   return (
     <ComingSoon
       icon={BookOpen}
