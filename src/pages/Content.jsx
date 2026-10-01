@@ -1,0 +1,15 @@
+import React from "react";
+import { BookOpen } from "lucide-react";
+import ComingSoon from "@/components/ComingSoon";
+import { useSettings } from "@/context/SettingsContext";
+
+export default function Content() {
+  const { t } = useSettings();
+  return (
+    <ComingSoon
+      icon={BookOpen}
+      title={t("nav.content")}
+      description="Religiöse Texte, Lesungen und Reflexionen passend zu deiner Tradition werden hier ergänzt."
+    />
+  );
+}

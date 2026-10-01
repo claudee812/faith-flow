@@ -1,12 +1,25 @@
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
-// Add page imports here
+import { Navigate } from 'react-router-dom';
+import { SettingsProvider } from '@/context/SettingsContext';
+import OnboardingGate from '@/components/OnboardingGate';
+import AppLayout from '@/components/AppLayout';
+import Login from '@/pages/Login';
+import Register from '@/pages/Register';
+import ForgotPassword from '@/pages/ForgotPassword';
+import ResetPassword from '@/pages/ResetPassword';
+import Onboarding from '@/pages/Onboarding';
+import Home from '@/pages/Home';
+import Calendar from '@/pages/Calendar';
+import Tracker from '@/pages/Tracker';
+import Content from '@/pages/Content';
+import Profile from '@/pages/Profile';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -34,7 +47,28 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <Routes>
-      {/* Add your page Route elements here */}
+      {/* Auth routes */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
+
+      {/* Authenticated app */}
+      <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
+        <Route element={<SettingsProvider><Outlet /></SettingsProvider>}>
+          {/* Onboarding (standalone, no bottom nav) */}
+          <Route path="/onboarding" element={<OnboardingGate><Onboarding /></OnboardingGate>} />
+          {/* Main app with bottom navigation */}
+          <Route element={<OnboardingGate><AppLayout /></OnboardingGate>}>
+            <Route path="/" element={<Home />} />
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/tracker" element={<Tracker />} />
+            <Route path="/content" element={<Content />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+        </Route>
+      </Route>
+
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

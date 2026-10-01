@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   MoonStar,
   Church,
@@ -12,7 +11,6 @@ import {
   Shield,
   ChevronRight,
   LogOut,
-  Pencil,
 } from "lucide-react";
 import { useSettings } from "@/context/SettingsContext";
 import { useAuth } from "@/lib/AuthContext";
@@ -65,7 +63,6 @@ function Group({ title, children }) {
 export default function Profile() {
   const { t, settings, themeReligion, darkMode, toggleDarkMode, language, setLanguage, updateSettings } = useSettings();
   const { user, logout } = useAuth();
-  const navigate = useNavigate();
   const [religionOpen, setReligionOpen] = useState(false);
 
   const rel = getReligion(settings?.religion);
